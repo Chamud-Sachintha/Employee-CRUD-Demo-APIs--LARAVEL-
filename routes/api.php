@@ -28,3 +28,7 @@ Route::post('employee', [EmployeeController::class, 'saveEmployee']);
 Route::put('employee/{id}', [EmployeeController::class, 'updateEmployeeById']);
 
 Route::delete('employee/{id}', [EmployeeController::class, 'deleteEmployeeById']);
+
+Route::get('employee/filterbyemail/{email}', [EmployeeController::class, 'getEmployeeByEmailAddress']);
+
+Route::get('employee/ageBetween/{startAge}/{endAge}', [EmployeeController::class, 'getEmployeeByAgeBetween']);

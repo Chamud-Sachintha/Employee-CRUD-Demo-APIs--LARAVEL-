@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Employee;
 
 class EmployeeController extends Controller
@@ -48,6 +49,26 @@ class EmployeeController extends Controller
             $employee->delete();
 
             return response()->json(['message'=>'Delete Success'], 200);
+        }
+    }
+
+    public function getEmployeeByEmailAddress($employee_email){
+        $employee = Employee::where(['email_address'=>$employee_email])->get();
+
+        if(is_null($employee)){
+            return response()->json(['message'=>'not found employee'], 404);
+        }else{
+            return response()->json($employee, 200);
+        }
+    }
+
+    public function getEmployeeByAgeBetween($start_age,$end_age){
+        $employee = DB::table('employees')->whereBetween('emp_age', [$start_age, $end_age])->get();
+
+        if(is_null($employee)){
+            return response()->json(['message'=>'not found employee'], 404);
+        }else{
+            return response()->json($employee, 200);
         }
     }
 }
